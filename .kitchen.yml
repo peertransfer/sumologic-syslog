@@ -1,0 +1,29 @@
+---
+driver:
+  name: dokken
+  privileged: true
+  chef_version: 12.13.37
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+platforms:
+- name: debian
+  driver_config:
+    image: debian:8.4
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update && /usr/bin/apt-get install lsb-release net-tools --yes --no-install-recommends
+
+verifier:
+  name: inspec
+  root_path: '/opt/verifier'
+  sudo: false
+
+suites:
+  - name: default
+    run_list:
+      - recipe[sumologic-syslog-test::rsyslog]
