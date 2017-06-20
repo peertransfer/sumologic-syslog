@@ -1,0 +1,13 @@
+DEPENDENCIES
+  sumologic-syslog
+    path: .
+    metadata: true
+  sumologic-syslog-test
+    path: test/fixtures/cookbooks/sumologic-syslog-test
+
+GRAPH
+  rsyslog (6.0.1)
+  sumologic-syslog (0.1.0)
+    rsyslog (>= 0.0.0)
+  sumologic-syslog-test (0.1.0)
+    sumologic-syslog (>= 0.0.0)
