@@ -1,0 +1,35 @@
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+install: echo "skip bundle install"
+services: docker
+env:
+  matrix:
+    - INSTANCE=create-debian
+    - INSTANCE=delete-debian
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - /opt/chefdk/embedded/bin/chef gem install kitchen-dokken glare
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+script:
+  - 'if [ "$TRAVIS_REPO_SLUG" = "peertransfer/sumologic-syslog" ]; then KITCHEN_LOCAL_YAML=.kitchen.yml kitchen verify ${INSTANCE}; fi'
+after_script:
+  - docker images
+  - docker ps -a
+  - cat .kitchen/logs/kitchen.log
+matrix:
+  include:
+    - script: "/opt/chefdk/embedded/bin/cookstyle"
+      env: COOKSTYLE=1
+    - script: "/opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any -P"
+      env: FOODCRITIC=1
+    - script: "/opt/chefdk/embedded/bin/rspec"
+      env: CHEFSPEC=1
