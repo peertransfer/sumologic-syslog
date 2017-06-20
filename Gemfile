@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
-gem 'chefspec', '~> 4.7.0', require: false
-gem 'foodcritic', '~> 7.0', require: false
+
+gem 'chefspec', require: false
+gem 'foodcritic', require: false
 gem 'kitchen-inspec', require: false
 gem 'test-kitchen', require: false
 gem 'kitchen-dokken', require: false
-gem 'berkshelf', '~> 4.3', require: false
+gem 'berkshelf', require: false
 
-gem 'stove'
+group :release do
+  gem 'stove'
+  gem 'community_cookbook_releaser'
+end
