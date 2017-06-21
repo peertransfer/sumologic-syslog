@@ -32,11 +32,22 @@ Providers
 
 ```ruby
 sumologic_syslog_rsyslog 'default' do
+  deployment 'eu'
+  port '6514'
+  token '__TOKEN__@4113'
+  cookbook 'sumologic-rsyslog'
+
+  action :create
 end
 ```
-
 Where:
-
+- `deployment`: Sumologic deployment zone
+- `port`: Sumologic cloud syslog port
+- `token`: Sumologic cloud syslog token
+- `cookbook`: rsyslog template cookbook to override
+- `action`:
+  - `create`: Add sumologic action
+  - `remove`: Delete sumologic action
 
 Contributing
 ------------
@@ -52,4 +63,4 @@ License and Authors
 -------------------
 
 Authors:
-  - Jose Luis Salas <josacar@users.noreply.github.com>
+  - Flywire Engineering
