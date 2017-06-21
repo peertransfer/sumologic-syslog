@@ -13,8 +13,7 @@ provisioner:
 platforms:
 - name: debian
   driver_config:
-    image: debian:8.4
-    pid_one_command: /sbin/init
+    image: debian:8.8
     intermediate_instructions:
       - RUN /usr/bin/apt-get update && /usr/bin/apt-get install lsb-release net-tools --yes --no-install-recommends
 
@@ -27,3 +26,7 @@ suites:
   - name: create
     run_list:
       - recipe[sumologic-syslog-test::rsyslog-create]
+  - name: remove
+    run_list:
+      - recipe[sumologic-syslog-test::rsyslog-create]
+      - recipe[sumologic-syslog-test::rsyslog-remove]
