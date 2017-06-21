@@ -24,6 +24,6 @@ verifier:
   sudo: false
 
 suites:
-  - name: default
+  - name: create
     run_list:
-      - recipe[sumologic-syslog-test::rsyslog]
+      - recipe[sumologic-syslog-test::rsyslog-create]
