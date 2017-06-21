@@ -9,6 +9,8 @@ describe 'sumologic-syslog-test::rsyslog-create' do
 
   it { is_expected.to include_recipe('rsyslog::default') }
 
+  it { is_expected.to install_package('rsyslog-gnutls') }
+
   it 'downloads required CA' do
     is_expected.to create_remote_file('/etc/syslog.sumologic.crt').
       with(source: 'https://www.geotrust.com/resources/root_certificates/certificates/GeoTrust_Primary_CA.pem')
