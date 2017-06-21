@@ -1,0 +1,41 @@
+$ActionQueueFileName fwdRule1
+$ActionQueueMaxDiskSpace 1g
+$ActionQueueSaveOnShutdown on
+$ActionQueueType LinkedList
+$ActionResumeRetryCount -1
+
+$DefaultNetstreamDriverCAFile /tmp/GeoTrust_Primary_CA.pem
+
+template(name="SumoFormat" type="list") {
+    constant(value="<")
+    property(name="pri")
+    constant(value=">")
+    property(name="protocol-version")
+    constant(value=" ")
+    property(name="timestamp" dateFormat="rfc3339")
+    constant(value=" ")
+    property(name="hostname")
+    constant(value=" ")
+    property(name="app-name")
+    constant(value=" ")
+    property(name="procid")
+    constant(value=" ")
+    property(name="msgid")
+    constant(value=" ")
+    constant(value="[<%= @token %>@41123]")
+    constant(value=" ")
+    property(name="msg")
+    constant(value="\n")
+}
+
+*.* action(
+  type="omfwd"
+  protocol="tcp"
+  target="syslog.collection.<%= @deployment  %>.sumologic.com"
+  port="<%= @port %>"
+  template="SumoFormat"
+  streamdriver = "gtls"
+  streamdrivermode = "1"
+  streamdriverauthmode = "x509/name"
+  streamdriverpermittedpeers = "syslog.collection.*.sumologic.com"
+)
