@@ -10,6 +10,8 @@ default_action :create
 action :create do
   include_recipe 'rsyslog::default'
 
+  package 'rsyslog-gnutls'
+
   remote_file '/etc/syslog.sumologic.crt' do
     source 'https://www.geotrust.com/resources/root_certificates/certificates/GeoTrust_Primary_CA.pem'
   end
@@ -32,6 +34,7 @@ action :remove do
   file '/etc/rsyslog.d/sumologic.conf' do
     action :delete
   end
+
   file '/etc/syslog.sumologic.crt' do
     action :delete
   end
