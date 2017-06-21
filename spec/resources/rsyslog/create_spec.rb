@@ -2,7 +2,7 @@ require_relative '../../spec_helper'
 
 describe 'sumologic-syslog-test::rsyslog-create' do
   cached(:subject) do
-    runner = ChefSpec::SoloRunner.new(step_into: %w[sumologic_syslog_rsyslog])
+    runner = ChefSpec::SoloRunner.new(step_into: 'sumologic_syslog_rsyslog')
     runner.converge(described_recipe)
   end
   let(:node) { subject.node }
