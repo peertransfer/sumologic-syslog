@@ -27,3 +27,12 @@ action :create do
     cookbook new_resource.cookbook
   end
 end
+
+action :remove do
+  file '/etc/rsyslog.d/sumologic.conf' do
+    action :delete
+  end
+  file '/etc/syslog.sumologic.crt' do
+    action :delete
+  end
+end
