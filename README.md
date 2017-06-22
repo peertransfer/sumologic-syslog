@@ -3,6 +3,13 @@ sumologic-syslog Cookbook
 
 Installs [sumologic-syslog](https://help.sumologic.com/Send_Data/Sources/02Sources_for_Hosted_Collectors/Cloud_Syslog_Source)
 
+Build Status
+============
+
+[![Build Status](https://travis-ci.org/peertransfer/sumologic-syslog.svg?branch=master)](https://travis-ci.org/peertransfer/sumologic-syslog)
+[![Code Climate](https://codeclimate.com/github/peertransfer/sumologic-syslog/badges/gpa.svg)](https://codeclimate.com/github/peertransfer/sumologic-syslog)
+[![Cookbook Version](https://img.shields.io/cookbook/v/sumologic-syslog.svg)](https://supermarket.chef.io/cookbooks/sumologic-syslog)
+
 Requirements
 ------------
 

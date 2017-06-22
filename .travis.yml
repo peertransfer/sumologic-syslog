@@ -11,7 +11,7 @@ services: docker
 env:
   matrix:
     - INSTANCE=create-debian
-    - INSTANCE=delete-debian
+    - INSTANCE=remove-debian
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
