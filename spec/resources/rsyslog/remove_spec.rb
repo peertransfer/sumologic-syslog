@@ -6,9 +6,17 @@ describe 'sumologic-syslog-test::rsyslog-remove' do
     runner.converge(described_recipe)
   end
   let(:node) { subject.node }
+  let(:sumologic_cert) { '/etc/syslog.sumologic.crt' }
+
+  it { is_expected.to include_recipe('rsyslog::default') }
+
+  it 'notifies rsyslog service to restart' do
+    resource = subject.find_resource('file', sumologic_cert)
+    expect(resource).to notify('service[rsyslog]').to(:restart).delayed
+  end
 
   it 'removed rsyslog config file' do
     is_expected.to delete_file('/etc/rsyslog.d/sumologic.conf')
-    is_expected.to delete_file('/etc/syslog.sumologic.crt')
+    is_expected.to delete_file(sumologic_cert)
   end
 end

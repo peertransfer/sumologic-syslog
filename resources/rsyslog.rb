@@ -4,6 +4,7 @@ property :cookbook, String, default: 'sumologic-syslog'
 property :deployment, String, default: 'eu'
 property :port, String, default: '6514'
 property :token, String
+property :rsyslog_action, Symbol, default: :restart
 
 default_action :create
 
@@ -27,15 +28,19 @@ action :create do
       token: new_resource.token
     )
     cookbook new_resource.cookbook
+    notifies(new_resource.rsyslog_action, 'service[rsyslog]', :delayed)
   end
 end
 
 action :remove do
+  include_recipe 'rsyslog::default'
+
   file '/etc/rsyslog.d/sumologic.conf' do
     action :delete
   end
 
   file '/etc/syslog.sumologic.crt' do
     action :delete
+    notifies(new_resource.rsyslog_action, 'service[rsyslog]', :delayed)
   end
 end
