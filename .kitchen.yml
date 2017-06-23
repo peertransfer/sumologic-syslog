@@ -28,5 +28,4 @@ suites:
       - recipe[sumologic-syslog-test::rsyslog-create]
   - name: remove
     run_list:
-      - recipe[sumologic-syslog-test::rsyslog-create]
       - recipe[sumologic-syslog-test::rsyslog-remove]

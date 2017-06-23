@@ -10,6 +10,7 @@ issues_url 'https://github.com/peertransfer/sumologic-syslog/issues'
 source_url 'https://github.com/peertransfer/sumologic-syslog'
 
 depends 'rsyslog'
+
 chef_version '>= 12.9'
 
 supports 'debian'
