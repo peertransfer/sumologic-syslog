@@ -18,15 +18,18 @@ describe 'sumologic-syslog-test::rsyslog-create' do
       with(source: 'https://www.geotrust.com/resources/root_certificates/certificates/GeoTrust_Primary_CA.pem')
   end
 
+  it 'notifies rsyslog service to restart' do
+    resource = subject.find_resource('template', rsyslog_config)
+    expect(resource).to notify('service[rsyslog]').to(:restart).delayed
+  end
+
   it 'renders rsyslog config file' do
     is_expected.to render_file(rsyslog_config).
       with_content('syslog.collection.eu.sumologic.com')
 
-    is_expected.to render_file(rsyslog_config).
-      with_content('6514')
+    is_expected.to render_file(rsyslog_config).with_content('6514')
 
-    is_expected.to render_file(rsyslog_config).
-      with_content('MagicToken@41123')
+    is_expected.to render_file(rsyslog_config).with_content('MagicToken@41123')
 
     is_expected.to render_file(rsyslog_config).
       with_content("$DefaultNetstreamDriverCAFile #{sumologic_cert}")
