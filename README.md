@@ -1,7 +1,7 @@
 sumologic-syslog Cookbook
 ========================
 
-Installs [sumologic-syslog](https://help.sumologic.com/Send_Data/Sources/02Sources_for_Hosted_Collectors/Cloud_Syslog_Source)
+Installs [rsyslog configured to send to Sumo Logic](https://help.sumologic.com/Send_Data/Sources/02Sources_for_Hosted_Collectors/Cloud_Syslog_Source)
 
 Build Status
 ============
@@ -10,32 +10,29 @@ Build Status
 [![Code Climate](https://codeclimate.com/github/peertransfer/sumologic-syslog/badges/gpa.svg)](https://codeclimate.com/github/peertransfer/sumologic-syslog)
 [![Cookbook Version](https://img.shields.io/cookbook/v/sumologic-syslog.svg)](https://supermarket.chef.io/cookbooks/sumologic-syslog)
 
-Requirements
-------------
+## Requirements
 
-- A syslog server
-- Chef 12
+### Platforms
 
-Usage
------
+- Debian
 
-#### sumologic-syslog::rsyslog
+### Chef
 
-Just include `sumologic-syslog::rsyslog` in your node's `run_list`:
+- Chef 12+
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[sumologic-syslog::rsyslog]"
-  ]
-}
+### Cookbook Dependencies
+
+- rsyslog
+
+## Usage
+
+Place a dependency on the `sumologic-syslog` cookbook in your cookbook's metadata.rb
+
+```ruby
+depends 'sumologic-syslog'
 ```
 
-Providers
----------
-
-**sumologic_rsyslog**
+Then, in a recipe in your cookbook:
 
 ```ruby
 sumologic_syslog_rsyslog 'default' do
@@ -43,11 +40,27 @@ sumologic_syslog_rsyslog 'default' do
   port '6514'
   token '__TOKEN__@4113'
   cookbook 'sumologic-rsyslog'
+  action :create
+end
 
+```
+
+## Resources
+
+### sumologic-syslog::rsyslog
+
+```ruby
+sumologic_syslog_rsyslog 'default' do
+  deployment 'eu'
+  port '6514'
+  token '__TOKEN__@4113'
+  cookbook 'sumologic-rsyslog'
   action :create
 end
 ```
-Where:
+
+#### Properties
+
 - `deployment`: Sumologic deployment zone
 - `port`: Sumologic cloud syslog port
 - `token`: Sumologic cloud syslog token
@@ -56,8 +69,7 @@ Where:
   - `create`: Add sumologic action
   - `remove`: Delete sumologic action
 
-Contributing
-------------
+## Contributing
 
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
@@ -66,8 +78,7 @@ Contributing
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
 
-License and Authors
--------------------
+## License and Authors
 
 Authors:
   - Flywire Engineering
