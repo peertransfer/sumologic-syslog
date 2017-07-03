@@ -4,7 +4,7 @@ $ActionQueueSaveOnShutdown on
 $ActionQueueType LinkedList
 $ActionResumeRetryCount -1
 
-$DefaultNetstreamDriverCAFile /etc/syslog.sumologic.crt
+$DefaultNetstreamDriverCAFile <%= @tls_bundle_path %>
 
 template(name="SumoFormat" type="list") {
     constant(value="<")

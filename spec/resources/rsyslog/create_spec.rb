@@ -8,6 +8,7 @@ describe 'sumologic-syslog-test::rsyslog-create' do
   let(:node) { subject.node }
   let(:rsyslog_config) { '/etc/rsyslog.d/sumologic.conf' }
   let(:sumologic_cert) { '/etc/syslog.sumologic.crt' }
+  let(:tls_ca_cert) { '/etc/ssl/certs/ca-certificates.crt' }
 
   it { is_expected.to include_recipe('rsyslog::default') }
 
@@ -32,6 +33,6 @@ describe 'sumologic-syslog-test::rsyslog-create' do
     is_expected.to render_file(rsyslog_config).with_content('MagicToken@41123')
 
     is_expected.to render_file(rsyslog_config).
-      with_content("$DefaultNetstreamDriverCAFile #{sumologic_cert}")
+      with_content("$DefaultNetstreamDriverCAFile #{tls_ca_cert}")
   end
 end
