@@ -5,6 +5,7 @@ property :deployment, String, default: 'eu'
 property :port, String, default: '6514'
 property :token, String
 property :rsyslog_action, Symbol, default: :restart
+property :tls_bundle_path, String, default: '/etc/syslog.sumologic.crt'
 
 default_action :create
 
@@ -25,7 +26,8 @@ action :create do
     variables(
       deployment: new_resource.deployment,
       port: new_resource.port,
-      token: new_resource.token
+      token: new_resource.token,
+      tls_bundle_path: new_resource.tls_bundle_path
     )
     cookbook new_resource.cookbook
     notifies(new_resource.rsyslog_action, 'service[rsyslog]', :delayed)

@@ -43,6 +43,7 @@ sumologic_syslog_rsyslog 'default' do
   port '6514'
   token '__TOKEN__@4113'
   cookbook 'sumologic-rsyslog'
+  tls_bundle_path '/etc/ssl/certs/ca-certificates.crt'
 
   action :create
 end
@@ -52,6 +53,7 @@ Where:
 - `port`: Sumologic cloud syslog port
 - `token`: Sumologic cloud syslog token
 - `cookbook`: rsyslog template cookbook to override
+- `tls_bundle_path`: Use this TLS certificate bundle instead of dowloading it
 - `action`:
   - `create`: Add sumologic action
   - `remove`: Delete sumologic action
