@@ -6,7 +6,7 @@ describe 'sumologic-syslog-test::rsyslog-remove' do
     runner.converge(described_recipe)
   end
   let(:node) { subject.node }
-  let(:sumologic_cert) { '/etc/syslog.sumologic.crt' }
+  let(:sumologic_cert) { '/etc/syslog.sumologic.pem' }
 
   it { is_expected.to include_recipe('rsyslog::default') }
 

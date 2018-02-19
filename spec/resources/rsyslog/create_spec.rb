@@ -7,7 +7,7 @@ describe 'sumologic-syslog-test::rsyslog-create' do
   end
   let(:node) { subject.node }
   let(:rsyslog_config) { '/etc/rsyslog.d/sumologic.conf' }
-  let(:sumologic_cert) { '/etc/syslog.sumologic.crt' }
+  let(:sumologic_cert) { '/etc/syslog.sumologic.pem' }
   let(:tls_ca_cert) { '/etc/ssl/certs/ca-certificates.crt' }
 
   it { is_expected.to include_recipe('rsyslog::default') }
@@ -16,7 +16,7 @@ describe 'sumologic-syslog-test::rsyslog-create' do
 
   it 'downloads required CA' do
     is_expected.to create_remote_file(sumologic_cert).
-      with(source: 'https://www.geotrust.com/resources/root_certificates/certificates/GeoTrust_Primary_CA.pem')
+      with(source: 'https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.pem')
   end
 
   it 'notifies rsyslog service to restart' do

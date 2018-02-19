@@ -5,7 +5,7 @@ property :deployment, String, default: 'eu'
 property :port, String, default: '6514'
 property :token, String
 property :rsyslog_action, Symbol, default: :restart
-property :tls_bundle_path, String, default: '/etc/syslog.sumologic.crt'
+property :tls_bundle_path, String, default: '/etc/syslog.sumologic.pem'
 
 default_action :create
 
@@ -14,8 +14,8 @@ action :create do
 
   package 'rsyslog-gnutls'
 
-  remote_file '/etc/syslog.sumologic.crt' do
-    source 'https://www.geotrust.com/resources/root_certificates/certificates/GeoTrust_Primary_CA.pem'
+  remote_file '/etc/syslog.sumologic.pem' do
+    source 'https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.pem'
   end
 
   template '/etc/rsyslog.d/sumologic.conf' do
@@ -41,7 +41,7 @@ action :remove do
     action :delete
   end
 
-  file '/etc/syslog.sumologic.crt' do
+  file '/etc/syslog.sumologic.pem' do
     action :delete
     notifies(new_resource.rsyslog_action, 'service[rsyslog]', :delayed)
   end

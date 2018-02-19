@@ -7,7 +7,7 @@ file 'sumologic conf' do
 end
 
 file 'sumologic cert' do
-  path '/etc/syslog.sumologic.crt'
+  path '/etc/syslog.sumologic.pem'
 end
 
 sumologic_syslog_rsyslog 'default' do
