@@ -1,4 +1,4 @@
-describe file('/etc/syslog.sumologic.crt') do
+describe file('/etc/syslog.sumologic.pem') do
   it { is_expected.not_to exist }
 end
 
