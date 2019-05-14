@@ -14,9 +14,8 @@ describe 'sumologic-syslog-test::rsyslog-create' do
 
   it { is_expected.to install_package('rsyslog-gnutls') }
 
-  it 'downloads required CA' do
-    is_expected.to create_remote_file(sumologic_cert).
-      with(source: 'https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.pem')
+  it 'renders required CA' do
+    is_expected.to create_cookbook_file(sumologic_cert)
   end
 
   it 'notifies rsyslog service to restart' do

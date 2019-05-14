@@ -7,7 +7,7 @@ DEPENDENCIES
 
 GRAPH
   rsyslog (6.0.1)
-  sumologic-syslog (0.3.1)
+  sumologic-syslog (0.3.2)
     rsyslog (>= 0.0.0)
   sumologic-syslog-test (0.1.0)
     sumologic-syslog (>= 0.0.0)
