@@ -14,8 +14,9 @@ action :create do
 
   package 'rsyslog-gnutls'
 
-  remote_file '/etc/syslog.sumologic.pem' do
-    source 'https://dl.cacerts.digicert.com/DigiCertHighAssuranceEVRootCA.crt'
+  cookbook_file '/etc/syslog.sumologic.pem' do
+    source 'digicert.pem'
+    action :create
   end
 
   template '/etc/rsyslog.d/sumologic.conf' do
