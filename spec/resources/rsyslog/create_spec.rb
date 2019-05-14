@@ -16,7 +16,7 @@ describe 'sumologic-syslog-test::rsyslog-create' do
 
   it 'downloads required CA' do
     is_expected.to create_remote_file(sumologic_cert).
-      with(source: 'https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.pem')
+      with(source: 'https://dl.cacerts.digicert.com/DigiCertHighAssuranceEVRootCA.crt')
   end
 
   it 'notifies rsyslog service to restart' do
