@@ -15,6 +15,7 @@ action :create do
   package 'rsyslog-gnutls'
 
   cookbook_file '/etc/syslog.sumologic.pem' do
+    cookbook new_resource.cookbook
     source 'digicert.pem'
     action :create
   end
